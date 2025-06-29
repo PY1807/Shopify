@@ -27,3 +27,23 @@ A Spring Boot application implementing a basic e‑commerce backend for managing
    ```bash
    git clone https://github.com/PY1807/Shopify.git
    cd Shopify
+
+2. Go to src/main/resources/application.properties
+    Now,replace the port number,username and password at the required places.
+3. Open MySQL Workbench, terminal, or any MySQL client, and run:
+    ```CREATE DATABASE shopify;
+    This creates the database needed for the application.
+4. **Run Application**
+   ```mvn clean install
+      mvn spring-boot:run
+
+### Database Tables
+ cart
+ cart_item
+ category
+ image
+ order_item
+ orders product
+ user
+
+   

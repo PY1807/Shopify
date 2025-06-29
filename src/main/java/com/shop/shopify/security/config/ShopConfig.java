@@ -8,15 +8,15 @@ import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.lang.NonNull;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -33,6 +33,7 @@ import java.util.List;
 @Configuration
 @EnableMethodSecurity(prePostEnabled = true)
 public class ShopConfig {
+
   private final ShopUserDetailsService userDetailsService;
   private final JwtAuthEntryPoint authEntryPoint;
 
@@ -56,17 +57,19 @@ public class ShopConfig {
   @Bean
   public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
     return authConfig.getAuthenticationManager();
-
   }
 
+  @SuppressWarnings("deprecation")
   @Bean
   public DaoAuthenticationProvider daoAuthenticationProvider(UserDetailsService userDetailsService,
       PasswordEncoder passwordEncoder) {
-    return DaoAuthenticationProvider.builder()
-   
+    DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+    provider.setUserDetailsService(userDetailsService);
+    provider.setPasswordEncoder(passwordEncoder);
+    return provider;
+  }
 
-  ld();ean
-
+  @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     http
         .csrf(AbstractHttpConfigurer::disable)
@@ -75,9 +78,10 @@ public class ShopConfig {
         .authorizeHttpRequests(auth -> auth
             .requestMatchers(SECURED_URLS.toArray(new String[0])).authenticated()
             .anyRequest().permitAll());
+
     http.authenticationProvider(daoAuthenticationProvider(userDetailsService, passwordEncoder()));
-    http.addFilterBefore(authTokenFilter(),
-        org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter.class);
+    http.addFilterBefore(authTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+
     return http.build();
   }
 
@@ -86,13 +90,12 @@ public class ShopConfig {
     return new WebMvcConfigurer() {
       @Override
       public void addCorsMappings(@NonNull CorsRegistry registry) {
-        registry.addMapping("/**") // Apply to all endpoints
-            .allowedOrigins("http://localhost:5173") // Allow this origin
-            .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // Allow these HTTP methods
-            .allowedHeaders("*") // Allow all headers
-            .allowCredentials(true); // Allow credentials
+        registry.addMapping("/**")
+            .allowedOrigins("http://localhost:5173")
+            .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+            .allowedHeaders("*")
+            .allowCredentials(true);
       }
     };
   }
-
 }

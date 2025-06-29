@@ -25,5 +25,5 @@ A Spring Boot application implementing a basic e‑commerce backend for managing
 
 1. **Clone Repository**
    ```bash
-   git clone <repo-url>
-   cd <project-root>
+   git clone [<repo-url>](https://github.com/PY1807/Shopify.git)
+   cd Shopify

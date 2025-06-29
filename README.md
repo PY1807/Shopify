@@ -48,8 +48,7 @@ A Spring Boot application implementing a basic e‑commerce backend for managing
  user
 
  Detailed structures in entity classes.
-
- ### Usage
-1.Product Management:
+### Usage
+1.Product Management
 2.Category & Image Operations
 3.User Registration & Authentication

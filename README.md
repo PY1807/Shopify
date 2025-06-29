@@ -33,11 +33,10 @@ A Spring Boot application implementing a basic e‑commerce backend for managing
 3. Open MySQL Workbench, terminal, or any MySQL client, and run:
     ```bash
     CREATE DATABASE shopify;
-   This creates the database needed for the application.
 4. **Run Application**
    ```bash
-      mvn clean install
-      mvn spring-boot:run
+   mvn clean install
+   mvn spring-boot:run
 
 ### Database Tables
  cart,

@@ -4,7 +4,7 @@ A Spring Boot application implementing a basic e‑commerce backend for managing
 
 ---
 
-## 🧩 Overview
+## Overview
 
 - **Language & Frameworks:** Java 17, Spring Boot, Spring Data JPA
 - **Database:** MySQL
@@ -12,7 +12,7 @@ A Spring Boot application implementing a basic e‑commerce backend for managing
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 

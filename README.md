@@ -1,6 +1,6 @@
 # Shopify
 
-A Spring Boot application implementing a basic e‑commerce backend for managing products, categories, images, users, orders, and order items. Built with Java 17, Spring Boot 3.5, Spring Data JPA, and MySQL.
+A Spring Boot application implementing a basic e‑commerce backend for managing products, categories, images, users, orders, and order items. 
 
 ---
 
